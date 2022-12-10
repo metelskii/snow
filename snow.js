@@ -4,12 +4,16 @@ ctx.fillStyle = 'white';
 //var id = ctx.getImageData(0, 0, cvs.width, cvs.height);
 //var pixels = id.data;
 
+const MIN_X = 0;
+const MAX_X = 300;
+
 const snowflakes = [];
 let snow = [];
 let qnty = 100;
 let snowMatrix = Array.from(Array(301), () => new Array(151));
 
 function initSnowMatrix() {
+    
     for (let i = 0; i <= 300; i++) {
         for (let j = 0; j <= 150; j++) {
             snowMatrix[i][j] = 0;
@@ -63,11 +67,11 @@ function moreSnow() {
 function moveSnowflake(snowflake) {
     if (Math.random() < 0.5) {
         snowflake.x += Math.random() < 0.5 ? -1 : 1;
-        if (snowflake.x < 0) {
-            snowflake.x = 0;
+        if (snowflake.x < MIN_X) {
+            snowflake.x = MIN_X;
         }
-        else if (snowflake.x > 300) {
-            snowflake.x = 300;
+        else if (snowflake.x > MAX_X) {
+            snowflake.x = MAX_X;
         }
     }
     snowflake.y += Math.floor(Math.random() * (2 - 1) + 1);
