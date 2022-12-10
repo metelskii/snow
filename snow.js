@@ -1,6 +1,6 @@
-const cvs = document.getElementById('canvas');
-const ctx = cvs.getContext('2d', { willReadFrequently: true });
-ctx.fillStyle = 'white';
+const mainLayerCanvas = document.getElementById('main-layer');
+const mainLayerContext = mainLayerCanvas.getContext('2d', { willReadFrequently: true });
+mainLayerContext.fillStyle = 'white';
 //var id = ctx.getImageData(0, 0, cvs.width, cvs.height);
 //var pixels = id.data;
 
@@ -22,8 +22,8 @@ function initSnowMatrix() {
 function getSnowflakes() {
     for (let i = 0; i < qnty; i++) {
         const snowflake = { x: 0, y: 0 };
-        snowflake.x = Math.floor(Math.random() * cvs.width);
-        snowflake.y = Math.floor(Math.random() * cvs.height);
+        snowflake.x = Math.floor(Math.random() * mainLayerCanvas.width);
+        snowflake.y = Math.floor(Math.random() * mainLayerCanvas.height);
         //snowflake.y = 0;
         snowflakes.push(snowflake);
     }
@@ -76,8 +76,8 @@ function moveSnowflake(snowflake) {
         //snowflake.x = Math.floor(Math.random() * cvs.width);
         //snowflake.y = 0;
     }
-    if (snowflake.y == cvs.height) {
-        snowflake.x = Math.floor(Math.random() * cvs.width);
+    if (snowflake.y == mainLayerCanvas.height) {
+        snowflake.x = Math.floor(Math.random() * mainLayerCanvas.width);
         snowflake.y = 0;
     }
 }
@@ -113,8 +113,8 @@ function insertSnow(x, y) {
 }
 
 function draw() {
-    ctx.clearRect(0, 0, cvs.width, cvs.height);
-    let id = ctx.getImageData(0, 0, cvs.width, cvs.height);
+    mainLayerContext.clearRect(0, 0, mainLayerCanvas.width, mainLayerCanvas.height);
+    let id = mainLayerContext.getImageData(0, 0, mainLayerCanvas.width, mainLayerCanvas.height);
     let pixels = id.data;
 
     //let time1 = new Date().getTime();
@@ -143,7 +143,7 @@ function draw() {
             }
         }
     }
-    ctx.putImageData(id, 0, 0);
+    mainLayerContext.putImageData(id, 0, 0);
     checkGameOver();
 
     //let time2 = new Date().getTime();
@@ -158,9 +158,9 @@ function checkGameOver() {
             }
         }
     }
-    ctx.fillStyle = 'black';
-    ctx.font = '30px Changa One';
-    ctx.fillText('Завалило снегом!', 40, 80);
+    mainLayerContext.fillStyle = 'black';
+    mainLayerContext.font = '30px Changa One';
+    mainLayerContext.fillText('Завалило снегом!', 40, 80);
     clearInterval(run);
 }
 
