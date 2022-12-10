@@ -1,41 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta http_equiv="expires" content="0">
     <title>Happy New Year!</title>
-    <style>
-        canvas {
-            display: block;
-            margin: 30px auto 30px auto;
-            background-color: blue;
-            width: 900px;
-            height: 500px;
-        }
-        button {
-            display: block;
-            margin: auto;
-            text-transform: uppercase;
-            background-color: blue;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 15px;
-        }
-        button:hover {
-            background-color: rgb(70, 70, 252);
-        }
-        button:active {
-            background-color: rgb(20, 20, 172);
-        }
-        #more {
-            margin-top: 50px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body onload="getSnowflakes()">
-    <button id="more" onclick="moreSnow()">Больше снега!!!</button>
-    <canvas id="canvas"></canvas>
-    <button id="clear" onclick="clearSnow()">Почистить снег</button>
+    <div id="wrapper">
+        <div id="ui">
+            <button id="more" onclick="moreSnow()">Больше снега!!!</button>
+            <button id="clear" onclick="clearSnow()">Почистить снег</button>
+        </div>
+        <div id="scene">
+            <canvas id="main-layer"></canvas>
+            <canvas id="background-layer"></canvas>
+        </div>
+        <div style="display:none;">
+            <img id="source" src="images/back1.jpg" />
+        </div>
+    </div>
     <script src="snow.js"></script>
 </body>
+
 </html>

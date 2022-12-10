@@ -1,0 +1,53 @@
+$width : 900px;
+$height: 500px;
+
+#wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+    #scene {
+        position: relative;
+        width: $width;
+        height: $height;
+
+        canvas {
+            width: $width;
+            height: $height;
+            position: absolute;
+
+            &#main-layer {
+                z-index: 2;
+            }
+
+            &#background-layer {
+                background-image: url("images/back_900x500.png");
+                z-index: 1;
+            }
+        }
+    }
+
+    #ui {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        button {
+            text-transform: uppercase;
+            background-color: blue;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 15px;
+
+            &:hover {
+                background-color: rgb(70, 70, 252);
+            }
+
+            &:active {
+                background-color: rgb(20, 20, 172);
+            }
+        }
+    }
+}
