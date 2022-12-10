@@ -4,26 +4,24 @@ ctx.fillStyle = 'white';
 //var id = ctx.getImageData(0, 0, cvs.width, cvs.height);
 //var pixels = id.data;
 
+const MIN_X = 0;
+const MAX_X = 300;
+
 const snowflakes = [];
 let snow = [];
 let qnty = 100;
-let snowMatrix = Array.from(Array(301), () => new Array(151));
+let snowMatrix;
 
 function initSnowMatrix() {
+    snowMatrix = Array.from(Array(301), () => new Array(151).fill(0));
     for (let i = 0; i <= 300; i++) {
-        for (let j = 0; j <= 150; j++) {
-            snowMatrix[i][j] = 0;
-        }
         snowMatrix[i][150] = 1;
     }
 }
 
 function getSnowflakes() {
     for (let i = 0; i < qnty; i++) {
-        const snowflake = {
-            x: 0,
-            y: 0
-        };
+        const snowflake = { x: 0, y: 0 };
         snowflake.x = Math.floor(Math.random() * cvs.width);
         snowflake.y = Math.floor(Math.random() * cvs.height);
         //snowflake.y = 0;
@@ -63,11 +61,11 @@ function moreSnow() {
 function moveSnowflake(snowflake) {
     if (Math.random() < 0.5) {
         snowflake.x += Math.random() < 0.5 ? -1 : 1;
-        if (snowflake.x < 0) {
-            snowflake.x = 0;
+        if (snowflake.x < MIN_X) {
+            snowflake.x = MIN_X;
         }
-        else if (snowflake.x > 300) {
-            snowflake.x = 300;
+        else if (snowflake.x > MAX_X) {
+            snowflake.x = MAX_X;
         }
     }
     snowflake.y += Math.floor(Math.random() * (2 - 1) + 1);
@@ -111,17 +109,17 @@ function insertSnow(x, y) {
             y = snow[i].y - 1;
         }
     }
-    snow.push({ x: x, y: y});
+    snow.push({ x: x, y: y });
 }
 
-function draw() {    
+function draw() {
     ctx.clearRect(0, 0, cvs.width, cvs.height);
     let id = ctx.getImageData(0, 0, cvs.width, cvs.height);
     let pixels = id.data;
 
     //let time1 = new Date().getTime();
 
-    for (let i = 0; i < snowflakes.length; i++) {        
+    for (let i = 0; i < snowflakes.length; i++) {
         moveSnowflake(snowflakes[i]);
         //ctx.fillRect(snowflakes[i].x, snowflakes[i].y, 1, 1);
         let off = (snowflakes[i].y * id.width + snowflakes[i].x) * 4;
@@ -152,7 +150,7 @@ function draw() {
     //console.log((time2 - time1) / 1000 );
 }
 
-function checkGameOver() {    
+function checkGameOver() {
     for (let i = 0; i <= 300; i++) {
         for (let j = 0; j <= 150; j++) {
             if (snowMatrix[i][j] == 0) {
